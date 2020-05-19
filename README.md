@@ -34,9 +34,13 @@ Allows you to search using the title of the event and then Update/Delete the eve
 
 ## About the Database:
 I have used db.sqlite3 database which can be easily viewed using django administration url.
+
 There are 2 Models:
+   
    Profile: Keeps a record of the user- his Username, Email, a unique User ID for authentication 
+   
    Events: A record of all events with attributes- Title, date and foreign key=profile (i.e the current user)
+   
  POST/GET Methods are used frequently here to interact with the database. 
  
  The project is deployed using heroku.
