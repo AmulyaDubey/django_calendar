@@ -44,3 +44,13 @@ There are 2 Models:
  POST/GET Methods are used frequently here to interact with the database. 
  
  The project is deployed using heroku.
+ 
+ ## forms.py
+  Custom forms for:
+  1. Login
+  
+  2. Register New User 
+  
+  3. Add new Event 
+  
+  4. Search of an Event using the title
