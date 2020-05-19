@@ -54,3 +54,13 @@ There are 2 Models:
   3. Add new Event 
   
   4. Search of an Event using the title
+  
+  ## Templates
+  Consist of all html files 
+  
+  ## urls.py 
+  
+  Contain all paths in use which then goes to views.py
+  
+  ## views.py
+   Contain all view definitions as functions and perform necessary operations according to post/get from client side and alters/ fetches from database and the renders or redirects to another url
