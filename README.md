@@ -64,3 +64,7 @@ There are 2 Models:
   
   ## views.py
    Contain all view definitions as functions and perform necessary operations according to post/get from client side and alters/ fetches from database and the renders or redirects to another url
+
+## Virtual Environment
+ I built my entire project in a virtual env mypython.
+ IDE used: Virtual Studio Code
