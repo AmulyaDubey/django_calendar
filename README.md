@@ -12,8 +12,9 @@ Follow the link: https://pacific-hamlet-44649.herokuapp.com/backend/
 You are given 2 options: Either to Login(Existing User) or Register(Create new user). They lead to the corresponding pages.
 
 ## Login Page: 
-### Login using existing credentials and the user id gets activated.
-Register:
+Login using existing credentials and the user id gets activated.
+
+## Register:
 Sign up using a username, email and password. After successful registering, go back to login page and login using the credentials and generates a unique Authentication id for each user.
 
 ## Dashboard:
