@@ -1,0 +1,18 @@
+<div style="text-align: center; margin-top: 25;">
+    {% block content %}
+  <h2>Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+      </p>
+    {% endfor %}
+    <button type="submit">Sign up</button>
+    {% for message in messages %}
+            <p style="color: red" id="messages">{{ message }}</p>
+        {% endfor %}
+  </form>
+{% endblock %}
+</div>

@@ -1,0 +1,28 @@
+<head>
+    <title>Welcome</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="jumbotron jumbotron-fluid">
+
+        <div class="container">
+            <h1 style="text-align: center;">Your Calender</h1>
+            </div>
+      </div>
+      <h3 style="text-align: center;">Create New Event</h3>
+      <div style="text-align: center; margin-top: 25;">
+        <form method="post">
+          {% csrf_token %}
+          {% for field in form %}
+            <p>
+              {{ field.label_tag }}<br>
+              {{ field }}
+            </p>
+          {% endfor %}
+          <button type="submit">Create</button>
+        </form>
+      </div>
+
+      
+</body>

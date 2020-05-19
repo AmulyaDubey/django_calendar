@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <title>Welcome</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<style>
+    .row{
+        margin-left: 200px;
+    }
+    .row button{
+        margin-left: 100px;
+    }
+</style>
+<body>
+    <div class="jumbotron jumbotron-fluid">
+
+        <div class="container">
+            <h1 style="text-align: center;">Your Calender</h1>
+            </div>
+      </div>
+    <h3 style="text-align: center;">WELCOME {{user.username}}!</h3>
+    <br>
+    <div class='row'>
+        <button id="btn1" onclick="location.href='/backend/create/{{user.user_id}}'">Create New Event</button>
+        <button id="btn2" onclick="location.href='/backend/show/{{user.user_id}}'">Show Scheduled Events</button>
+        <button id="btn3" onclick="location.href='/backend/update/{{user.user_id}}'">Update Events</button>
+        <button id="btn3" onclick="location.href='/backend/delete/{{user.user_id}}'">Delete Events</button>
+    </div>
+   
+</body>
+
