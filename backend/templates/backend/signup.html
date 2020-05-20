@@ -10,9 +10,17 @@
       </p>
     {% endfor %}
     <button type="submit">Sign up</button>
-    {% for message in messages %}
-            <p style="color: red" id="messages">{{ message }}</p>
-        {% endfor %}
   </form>
+  {% if messages %}
+<ul class="messages" style="color: red;">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+        {{ message }} 
+        {{message.tags}}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
 {% endblock %}
 </div>

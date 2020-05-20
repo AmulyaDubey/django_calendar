@@ -17,7 +17,7 @@ class Profile(models.Model):
 
 class Event(models.Model):
     title=models.CharField(max_length=100, db_column='title', null=True, unique=True)
-    date = models.CharField(max_length=100, db_column='date', null=True)
+    date = models.DateField(max_length=100, db_column='date', null=True, unique=False)
     user=models.ForeignKey(Profile, on_delete=models.CASCADE)
     def __str__(self):
         return self.title

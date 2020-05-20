@@ -15,7 +15,9 @@ SECRET_KEY = 'kfpm6vw-$vobk!%%jo=yem)&4_17oed-l&!9uetc3+3i4gzr62'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["pacific-hamlet-44649.herokuapp.com"]
+ALLOWED_HOSTS = ["pacific-hamlet-44649.herokuapp.com",
+                "127.0.0.1"
+]
 
 
 # Application definition

@@ -7,9 +7,11 @@ from django.contrib import messages
 from .models import Profile,Event
 from django.urls import path
 from datetime import datetime
+import re
+from validate_email import validate_email
 
 
-
+    
 # Create your views here.
 from django.http import HttpResponse
 
@@ -23,9 +25,16 @@ def register(request):
             email=request.POST.get('email','')
             username=request.POST.get('username','')
             password=request.POST.get('password1','')
-            obj=Profile(username=username,email=email, password=password) 
-            obj.save()
-            return HttpResponse('Succesful')
+            password2=request.POST.get('password2', '')
+            if isValidUsername(username) and isValidEmail(email) and passMatch(password,password2):
+                obj=Profile(username=username,email=email, password=password) 
+                obj.save()
+                messages.add_message(request,messages.SUCCESS, "You have registered successfully")
+                return redirect('/backend/login',{'messages':messages})
+            else:
+                messages.add_message(request,messages.ERROR, "Invalid Input")
+                print(messages)
+                return render(request, 'backend/signup.html', {'form': form})
     else :
         form=SignUpForm()
     
@@ -49,6 +58,7 @@ def login(request):
             except:
                  messages.info(request, 'Username OR password is incorrect')
     else:
+        print(messages)
         form=LoginForm()
     return render(request, 'backend/login.html', {'form': form})
 
@@ -72,14 +82,18 @@ def create(request,pk):
                 user=Profile.objects.get(user_id=pk)
                 event=Event(title=title, date=date, user=user)
                 event.save()
-                return HttpResponse('Event Created Succesfully')
+                messages.add_message(request, messages.SUCCESS, "Event Created ")
+                return render(request, 'backend/create.html', {'form':form})
         else:
             form=newEvent()
             user=Profile.objects.get(user_id=pk)
             context={'user':user, 'form':form}
         return render(request, 'backend/create.html', context)
     except:
-        return HttpResponse('404 PAGE NOT FOUND')
+            form=newEvent()
+            messages.add_message(request,messages.ERROR, "Invalid Date Input: Note that Date should be in the form YYYY-MM-DD")
+            return render(request, 'backend/create.html', {'form':form})
+
 
 def show(request,pk):
     user=Profile.objects.get(user_id=pk)
@@ -97,14 +111,18 @@ def delete(request,pk):
                 user=Profile.objects.get(user_id=pk)
                 event=Event.objects.get(title=title, user=user)
                 event.delete()
-                return HttpResponse('Event Deleted Succesfully')
+                context={'user':user, 'form':form}
+                messages.add_message(request, messages.SUCCESS, 'Event Deleted Successfully!')
+                return render(request, 'backend/delete.html', context)
         else:
             form=searchEvent()
             user=Profile.objects.get(user_id=pk)
             context={'user':user, 'form':form}
         return render(request, 'backend/delete.html', context)
     except:
-        return HttpResponse('404 PAGE NOT FOUND')
+        context={'user':user, 'form':form}
+        messages.add_message(request, messages.ERROR, 'Did not find any Event by that name. Check your Scheduled Events!')
+        return render(request, 'backend/delete.html', context)
 
 def update(request,pk):
     try:
@@ -124,8 +142,9 @@ def update(request,pk):
             context={'user':user, 'form':form}
         return render(request, 'backend/update.html', context)
     except:
-        return HttpResponse('404 PAGE NOT FOUND')
-
+        context={'user':user, 'form':form}
+        messages.add_message(request, messages.ERROR, 'Did not find any Event by that name. Check your Scheduled Events!')
+        return render(request, 'backend/update.html', context)
 def update2(request,pk1, pk2):
     try:
         if request.method== 'POST':
@@ -138,7 +157,9 @@ def update2(request,pk1, pk2):
                 event.title=title
                 event.date=date
                 event.save()
-                return HttpResponse('Event Updated Succesfully')
+                context={'user':user, 'form':form, 'event':event}
+                messages.add_message(request,messages.SUCCESS, "Event Updated Sucessfully!")
+                return render(request, 'backend/update2.html', context)
         else:
             user=Profile.objects.get(user_id=pk1)
             event=Event.objects.get(title=pk2, user=user)
@@ -146,6 +167,28 @@ def update2(request,pk1, pk2):
             context={'user':user, 'form':form, 'event':event}
         return render(request, 'backend/update2.html', context)
     except:
-        return HttpResponse('404 PAGE NOT FOUND')
+        context={'user':user, 'form':form, 'event':event}
+        messages.add_message(request,messages.ERROR, "Invalid Date Input: Note that Date should be in the form YYYY-MM-DD")
+        return render(request, 'backend/update2.html', context)
+def isValidUsername(value):
+    if not re.match(r'[a-zA-Z0-9_@#-]+', value):
+        return False
+    else :
+        if value[0]>='1' and value<='9':
+           return False
+        else :
+            return True
 
+def passMatch(a,b):
+    if a == b :
+        return True
+    else :
+        return False
 
+def isValidEmail(email):
+    try:
+        validate_email(email)
+    except:
+        return False
+    else:
+        return True

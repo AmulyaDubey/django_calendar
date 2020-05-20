@@ -8,6 +8,12 @@
     .tab {
         position: relative;;
         margin-left:150px; }
+    .error{
+    color: red;
+  }
+  .success{
+    color: green;
+  }
     
 </style>
 <body>
@@ -32,6 +38,13 @@
           {% endfor %}
           <button type="submit">Update</button>
         </form>
+        {% if messages %}
+        <ul class="messages" >
+            {% for message in messages %}
+                <p class="{{message.tags}}">{{message}}</p>
+            {% endfor %}
+        </ul>
+        {% endif %}
       </div>
 
       
